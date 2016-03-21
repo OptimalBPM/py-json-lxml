@@ -2,6 +2,7 @@
 """convert between python value and lxml.etree so that lxml's power can be applied to json data.
 In particular, xpath queries can be run against json.
 """
+import sys
 from lxml import etree
 
 type_map = dict(
@@ -25,7 +26,7 @@ def element(k, v):
     if isinstance(v, dict):
         for ck, cv in v.items():
             node.append(element(ck, cv))
-    elif isinstance(v, unicode):
+    elif sys.version_info < (3,0,0) and isinstance(v, unicode):
         node.set('type', type(v).__name__)
         node.text=v.encode('utf8')
     elif isinstance(v, (int, float, bool, str, NoneType)):  # scalar
