@@ -35,7 +35,7 @@ def element(k, v):
     elif isinstance(v, list):
         node.set('type', type(v).__name__)  # list xx this could be done across the board.
         for i, cv in enumerate(v):
-            node.append(element("_list_element_%d" % i, cv))
+            node.append(element("item", cv))
     else:
         assert False
 
